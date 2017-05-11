@@ -748,7 +748,7 @@ class Environment extends TerminusModel implements ConfigAwareInterface, Contain
             ];
         }
 
-        return $this->getContainer()->get(LocalMachineHelper::class)->execInteractive($ssh_command, $callback);
+        return $this->getContainer()->get(LocalMachineHelper::class)->exec($ssh_command, $callback);
     }
 
     /**
