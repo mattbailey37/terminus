@@ -59,7 +59,9 @@ class LocalMachineHelper implements ConfigAwareInterface
             }
         }
         $process->setTty($useTty);
-        echo '*** EXEC - IS TTY? ***' . $process->isTty();
+        $debugOutput = vsprintf('*** EXEC - isTty: %s, useTty: %s, cmd: %s, posix_isatty OUT: %s, posix_isatty IN: %s',
+        [$process->isTty(), $useTty, $cmd, posix_isatty(STDOUT), posix_isatty(STDIN)])
+        echo $debugOutput;
         $process->start();
         $process->wait($callback);
         return ['output' => $process->getOutput(), 'exit_code' => $process->getExitCode(),];
