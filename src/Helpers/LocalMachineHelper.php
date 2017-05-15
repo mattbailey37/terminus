@@ -59,8 +59,13 @@ class LocalMachineHelper implements ConfigAwareInterface
             }
         }
         $process->setTty($useTty);
-        $debugOutput = vsprintf('*** EXEC - isTty: %s, useTty: %s, cmd: %s, posix_isatty OUT: %s, posix_isatty IN: %s',
-        [$process->isTty(), $useTty, $cmd, posix_isatty(STDOUT), posix_isatty(STDIN)]);
+        $debugOutput = vsprintf(
+            '*** EXEC - isTty: %s, useTty: %s, cmd: %s, posix_isatty OUT: %s, posix_isatty IN: %s',
+            [var_export($process->isTty(), true), 
+            var_export($useTty, true), 
+            var_export($cmd, true), 
+            var_export(posix_isatty(STDOUT), true), 
+            var_export(posix_isatty(STDIN), true)]);
         echo $debugOutput;
         $process->start();
         $process->wait($callback);
