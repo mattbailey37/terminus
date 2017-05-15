@@ -56,7 +56,7 @@ abstract class SSHBaseCommand extends TerminusCommand implements SiteAwareInterf
         $command_line = $this->getCommandLine($command_args);
 
         $input = $this->input();
-        $useTty = $input->isInteractive() ? null : false;
+        $useTty = $input->isInteractive() ? true : false;
 
         $output = $this->output();
         $echoOutputFn = function ($type, $buffer) {};

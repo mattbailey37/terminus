@@ -733,10 +733,11 @@ class Environment extends TerminusModel implements ConfigAwareInterface, Contain
      */
     public function sendCommandViaSsh($command, $callback = null, $useTty = null)
     {
+        $ttyOption = $useTty ? '-T' : '';
         $sftp = $this->sftpConnectionInfo();
         $ssh_command = vsprintf(
-            'ssh -T %s@%s -p %s -o "AddressFamily inet" %s',
-            [$sftp['username'], $sftp['host'], $sftp['port'], ProcessUtils::escapeArgument($command),]
+            'ssh %s %s@%s -p %s -o "AddressFamily inet" %s',
+            [$ttyOption, $sftp['username'], $sftp['host'], $sftp['port'], ProcessUtils::escapeArgument($command),]
         );
 
         // Catch Terminus running in test mode
